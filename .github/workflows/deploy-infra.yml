@@ -1,0 +1,38 @@
+name: Deploy Infrastructure
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  apply_backend:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Terraform
+        uses: hashicorp/setup-terraform@v1
+
+      - name: Initialize Terraform
+        run: terraform init -backend-config="bucket=v-backend-s3" -backend-config="dynamodb_table=v-backend-db" -backend-config="region=us-east-1"
+
+      - name: Apply S3 + DynamoDB
+        run: terraform apply -target=module.s3 -target=module.dynamodb -auto-approve
+
+  apply_infra:
+    runs-on: ubuntu-latest
+    needs: apply_backend
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Terraform
+        uses: hashicorp/setup-terraform@v1
+
+      - name: Reinitialize backend
+        run: terraform init -backend-config="bucket=v-backend-s3" -backend-config="dynamodb_table=v-backend-db" -backend-config="region=us-east-1"
+
+      - name: Apply infrastructure
+        run: terraform apply -auto-approve
