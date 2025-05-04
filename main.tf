@@ -2,8 +2,8 @@ module "vpc" {
   source = "./modules/vpc"
 }
 
-module "subnet" {
-  source = "./modules/subnet"
+module "subnets" {
+  source = "./modules/subnets"
 }
 
 module "ecr" {
