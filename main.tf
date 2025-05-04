@@ -1,31 +1,31 @@
 module "vpc" {
-  source = "./modules/vpc"
+  source = "./module/vpc"
 }
 
 module "subnets" {
-  source = "./modules/subnets"
+  source = "./module/subnets"
 }
 
 module "ecr" {
-  source = "./modules/ecr"
+  source = "./module/ecr"
 }
 
 module "ecs" {
-  source = "./modules/ecs"
+  source = "./module/ecs"
 }
 
 module "alb" {
-  source = "./modules/alb"
+  source = "./module/alb"
 }
 
 module "iam" {
-  source = "./modules/iam"
+  source = "./module/iam"
 }
 
 module "sg" {
-  source = "./modules/sg"
+  source = "./module/sg"
 }
 
 module "logs" {
-  source = "./modules/logs"
+  source = "./module/logs"
 }
