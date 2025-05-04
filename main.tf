@@ -30,10 +30,3 @@ module "logs" {
   source = "../modules/logs"
 }
 
-module "s3" {
-  source = "../modules/s3"
-}
-
-module "dynamodb" {
-  source = "../modules/dynamodb"
-}
